@@ -127,7 +127,7 @@ git checkout data/bets.json
 1. Create an account at https://github.com if you don't have one.
 2. Install the GitHub command-line tool from https://cli.github.com (Mac: download the macOS installer, open it, click through).
 3. In Terminal, run `gh auth login` and pick: **GitHub.com → HTTPS → Yes (authenticate Git) → Login with a web browser**. Copy the code it shows, press Enter, paste the code in the browser, approve.
-4. Then the repo gets created and uploaded (Claude did this for you during setup):
+4. Then the repo gets created and uploaded (already done — it lives at https://github.com/thejokersgambit/jokers-gambit-tracker):
    `gh repo create jokers-gambit-tracker --public --source . --push`
 
 The repo should be **public**. That's the point: anyone can open `data/bets.json` on GitHub → "History" and see every bet was added before kickoff and never touched after settling.
