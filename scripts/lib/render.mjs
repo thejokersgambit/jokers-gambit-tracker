@@ -10,7 +10,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const RESULT_LABEL = { pending: 'Pending', win: 'Win', loss: 'Loss', push: 'Push', void: 'Void' };
 
 function layout({ title, description, path, body, sample, draft, builtAt, assetVersion }) {
-  const url = `https://${CONFIG.domain}${path}`;
+  const url = `${CONFIG.site_url || `https://${CONFIG.domain}`}${path}`;
   return `<!doctype html>
 <html lang="en">
 <head>
