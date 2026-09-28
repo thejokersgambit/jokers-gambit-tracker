@@ -1,0 +1,12 @@
+{
+  "site_name": "Joker's Gambit",
+  "handle": "jokers_gambit",
+  "x_url": "https://x.com/jokers_gambit",
+  "domain": "thejokersgambit.com",
+  "repo_url": "",
+  "season_label": "2026/27 Season",
+  "season_start": "2026-08-01",
+  "tagline": "Every bet posted before kickoff, every bet on the sheet — audit any row.",
+  "footer_line": "Every bet posted before kickoff. Audit any row.",
+  "market_types": ["BTTS", "over/under", "team total", "player prop", "parlay/SGP", "handicap", "match result", "double chance", "other"]
+}

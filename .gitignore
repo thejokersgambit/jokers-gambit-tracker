@@ -1,0 +1,14 @@
+node_modules/
+dist/
+exports/
+data/sample/
+.vercel/
+.claude/
+.DS_Store
+Thumbs.db
+data/import/draft-bets.json
+# Working notes from the feed extraction (contains private notes) — not published
+data/import/*.md
+!data/import/REPORT.md
+# Reference screenshot of another account's post — local only
+fredo-weekly-sheet-reference.jpg

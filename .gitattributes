@@ -1,0 +1,7 @@
+# Keep line endings identical on Mac and Windows so the data file never shows fake "changes".
+* text=auto eol=lf
+*.png binary
+*.woff2 binary
+
+# Original sheet exports: store byte-for-byte (audit trail)
+data/import/*.csv -text

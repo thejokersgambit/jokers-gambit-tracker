@@ -1,0 +1,29 @@
+{
+  "name": "jokers-gambit-tracker",
+  "version": "1.0.0",
+  "description": "Joker's Gambit public bet record — thejokersgambit.com",
+  "scripts": {
+    "bet:add": "node scripts/add.mjs",
+    "bet:settle": "node scripts/settle.mjs",
+    "bet:link": "node scripts/link.mjs",
+    "publish": "node scripts/publish.mjs",
+    "check": "node scripts/check.mjs",
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/serve.mjs",
+    "preview:sample": "node scripts/make-sample.mjs && node scripts/serve.mjs --sample",
+    "import": "node scripts/import.mjs",
+    "recap:week": "node scripts/recap.mjs week",
+    "recap:month": "node scripts/recap.mjs month"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "satori": "^0.33.5"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  }
+}

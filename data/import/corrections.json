@@ -1,0 +1,37 @@
+{
+  "defaults": {
+    "World Cup '26": {
+      "league": "World Cup"
+    }
+  },
+  "rows": {
+    "September 2026 #56": {
+      "odds": 1.775,
+      "why": "Posted at -129 (decimal 1.775); the sheet rounded it to 1.78. Confirmed by owner 2026-09-28; matches the Sep 5 day recap (+6.74u on 13u risked)"
+    },
+    "X feed #16": {
+      "tweet_url": "https://x.com/jokers_gambit/status/2101409696338829590",
+      "why": "Two plays were posted in one pick tweet, shared with the Sep 19 Ajax vs Excelsior bet; 5u @ 1.80 reconciles with the +8.00u Sep 19 day recap"
+    },
+    "X feed #15": {
+      "accept": true,
+      "why": "Shares its pick tweet with the Sep 19 Sevilla vs Barcelona bet (two plays in one post)"
+    },
+    "World Cup '26 gap #24": {
+      "accept": true,
+      "why": "Data-entry error in the old sheet (a duplicate of the Jul 7 Argentina vs Egypt bet entered against the wrong match), deleted before export. Never a posted pick, not part of the record. Confirmed by owner 2026-09-28"
+    },
+    "World Cup '26 gap #31": {
+      "accept": true,
+      "why": "Numbering slip in the old sheet; no bet is missing (the tab summary 23-12 = 35 bets matches the 35 rows). Confirmed by owner 2026-09-28"
+    },
+    "X feed #5": {
+      "fixture": "Real Madrid vs Inter",
+      "why": "Fixture confirmed by owner 2026-09-28 (Champions League, Sep 8)"
+    },
+    "X feed #6": {
+      "bet": "4-leg SGP: HT/FT Barcelona–Barcelona + Barcelona team total over 2.5 + Lamine Yamal 2+ SOT + Raphinha 1+ SOT",
+      "why": "Legs confirmed by owner 2026-09-28; all four legs won"
+    }
+  }
+}
