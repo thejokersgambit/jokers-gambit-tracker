@@ -18,12 +18,13 @@ function layout({ title, description, path, body, sample, draft, builtAt, assetV
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-<meta name="theme-color" content="#0a090d">
+<meta name="theme-color" content="#0a0808">
 <link rel="canonical" href="${url}">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-64.png" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/jetbrains-mono-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/cinzel-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/style.css?v=${assetVersion}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
@@ -35,7 +36,7 @@ function layout({ title, description, path, body, sample, draft, builtAt, assetV
 <body>
 ${sample ? '<div class="sample-banner">SAMPLE DATA — design preview only, not real bets</div>' : ''}${draft ? '<div class="sample-banner">IMPORT DRAFT — local preview, not yet published</div>' : ''}
 <header class="top">
-  <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">🃏</span><span class="brand-name">JOKER'S GAMBIT</span></a>
+  <a class="brand" href="/" aria-label="Joker's Gambit — home"><img class="brand-mark" src="/brand/jg-mark-96.png" alt="" width="36" height="36"><span class="brand-name"><span class="bn-1">Joker’s</span> <span class="bn-2">Gambit</span></span></a>
   <nav>
     <a href="/"${path === '/' ? ' aria-current="page"' : ''}>Dashboard</a>
     <a href="/log"${path === '/log' ? ' aria-current="page"' : ''}>Full log</a>
@@ -46,6 +47,7 @@ ${sample ? '<div class="sample-banner">SAMPLE DATA — design preview only, not 
 ${body}
 </main>
 <footer class="foot">
+  <div class="rule" aria-hidden="true"><span></span></div>
   <p class="foot-line">${esc(CONFIG.footer_line)}</p>
   <p class="foot-meta">
     Raw data: <a href="/bets.csv">CSV</a> · <a href="/bets.json">JSON</a>${CONFIG.repo_url ? ` · <a href="${esc(CONFIG.repo_url)}/commits/main/data/bets.json" rel="noopener">change history</a>` : ''}
@@ -114,7 +116,7 @@ export function renderDashboard(bets, opts) {
     </div>
     <div class="stat"><span class="stat-k">Record</span><span class="stat-v rec"><b class="pos">${S.wins}</b>-<b class="neg">${S.losses}</b>${S.pushes ? `-<b class="flat">${S.pushes}</b>` : ''}</span><span class="stat-sub">W-L${S.pushes ? '-P' : ''}${S.voids ? ` · ${S.voids} void` : ''}</span></div>
     <div class="stat"><span class="stat-k">ROI</span><span class="stat-v ${S.roi == null ? 'flat' : sign(S.roi)}">${fmtPct(S.roi)}</span><span class="stat-sub">P/L ÷ staked</span></div>
-    <div class="stat"><span class="stat-k">Win rate</span><span class="stat-v gold">${fmtRate(S.winRate)}</span><span class="stat-sub">wins ÷ decided</span></div>
+    <div class="stat"><span class="stat-k">Win rate</span><span class="stat-v ivory">${fmtRate(S.winRate)}</span><span class="stat-sub">wins ÷ decided</span></div>
     <div class="stat"><span class="stat-k">Streak</span><span class="stat-v ${streakCls}">${streakTxt}</span><span class="stat-sub">current run</span></div>
   </div>
   ${all.length !== season.length ? `<p class="alltime">All-time (incl. before ${esc(shortDate(CONFIG.season_start))} ${CONFIG.season_start.slice(0, 4)}): ${A.bets} bets · ${record(A)} · <b class="${sign(A.pl)}">${fmtU(A.pl)}</b> · ROI ${fmtPct(A.roi)}</p>` : ''}

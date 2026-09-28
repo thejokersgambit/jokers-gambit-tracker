@@ -12,3 +12,6 @@ data/import/*.md
 !data/import/REPORT.md
 # Reference screenshot of another account's post — local only
 fredo-weekly-sheet-reference.jpg
+# Brand source art (derived web assets live in site/brand/)
+jg-avatar.jpg
+jg-banner.jpeg
