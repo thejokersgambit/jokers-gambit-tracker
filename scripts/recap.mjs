@@ -21,6 +21,8 @@ const C = {
   pos: '#3ddc84', neg: '#ff4747', posBg: 'rgba(61,220,132,0.08)',
 };
 const col = (x) => (x > 0 ? C.pos : x < 0 ? C.neg : C.muted);
+// The hero figure sits beside the right-hand panel, so longer numbers step down a size.
+const heroSize = (t) => (t.length <= 6 ? 112 : t.length === 7 ? 96 : 84);
 
 // Minimal element helper for satori (no React needed).
 const h = (type, style = {}, ...children) => ({
@@ -73,7 +75,7 @@ function leftPanel({ eyebrow, title, s }) {
       h('div', { marginTop: 14 }, rule(300)),
       h('div', { ...DISPLAY, marginTop: 26, fontSize: 14, fontWeight: 700, letterSpacing: 4, color: C.muted }, eyebrow),
       h('div', { ...DISPLAY, marginTop: 8, fontSize: 36, fontWeight: 700, color: C.ivory, letterSpacing: 1 }, title),
-      h('div', { ...NUM, marginTop: 10, fontSize: 112, fontWeight: 700, color: col(s.pl), lineHeight: 1, letterSpacing: -1 }, fmtU(s.pl)),
+      h('div', { ...NUM, marginTop: 10, fontSize: heroSize(fmtU(s.pl)), fontWeight: 700, color: col(s.pl), lineHeight: 1, letterSpacing: -1 }, fmtU(s.pl)),
       h('div', { ...MONO, marginTop: 14, fontSize: 14, color: C.dim }, `${s.bets} bets · ${s.staked.toFixed(2)}u staked${s.pending ? ` · ${s.pending} pending` : ''}`),
     ),
     h('div', { gap: 10 },
