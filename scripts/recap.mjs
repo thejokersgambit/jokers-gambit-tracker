@@ -40,8 +40,13 @@ const FONTS = [
   { name: 'Inter', data: font('inter', 'inter-latin-600-normal.woff'), weight: 600 },
   { name: 'JBM', data: font('jetbrains-mono', 'jetbrains-mono-latin-500-normal.woff'), weight: 500 },
   { name: 'JBM', data: font('jetbrains-mono', 'jetbrains-mono-latin-700-normal.woff'), weight: 700 },
+  // Accented names (Częstochowa, Pogoń, Türkiye…) need the latin-ext glyphs.
+  { name: 'InterExt', data: font('inter', 'inter-latin-ext-400-normal.woff'), weight: 400 },
+  { name: 'InterExt', data: font('inter', 'inter-latin-ext-600-normal.woff'), weight: 600 },
+  { name: 'JBMExt', data: font('jetbrains-mono', 'jetbrains-mono-latin-ext-500-normal.woff'), weight: 500 },
+  { name: 'JBMExt', data: font('jetbrains-mono', 'jetbrains-mono-latin-ext-700-normal.woff'), weight: 700 },
 ];
-const MONO = { fontFamily: 'JBM' };
+const MONO = { fontFamily: 'JBM, JBMExt' };
 const DISPLAY = { fontFamily: 'Cinzel' };
 const NUM = { fontFamily: 'Bodoni' }; // big numbers: Cinzel's 1 reads as I
 const MARK = `data:image/png;base64,${fs.readFileSync(path.join(ROOT, 'site', 'brand', 'jg-mark-96.png')).toString('base64')}`;
@@ -95,7 +100,7 @@ function footer() {
 }
 
 function frame(left, right) {
-  return h('div', { width: 1200, height: 675, background: C.bg, color: C.text, fontFamily: 'Inter', position: 'relative',
+  return h('div', { width: 1200, height: 675, background: C.bg, color: C.text, fontFamily: 'Inter, InterExt', position: 'relative',
       backgroundImage: 'radial-gradient(circle at 8% 0%, rgba(139,6,22,0.30) 0%, rgba(10,8,8,0) 48%)' },
     img(SPADE, 300, 300, { position: 'absolute', left: -60, bottom: -40, opacity: 0.045 }),
     h('div', { width: '100%', height: 629 }, left, right),
