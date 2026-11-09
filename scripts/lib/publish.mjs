@@ -1,19 +1,11 @@
 // Check → build → commit → push. Used by bet:add, bet:settle, bet:link and npm run publish.
 
 import { loadBets } from './bets.mjs';
-import { git, isRepo, committedBets, guard } from './guard.mjs';
+import { git, isRepo } from './guard.mjs';
 import { build } from '../build.mjs';
 
 export function check() {
-  const bets = loadBets(); // throws on schema / P/L problems
-  const errors = isRepo() ? guard(bets, committedBets()) : [];
-  if (errors.length) {
-    throw new Error(
-      `Integrity check failed — nothing was published:\n  - ${errors.join('\n  - ')}\n` +
-        `\nTo undo your local change to the data file, run:  git checkout data/bets.json`,
-    );
-  }
-  return bets;
+  return loadBets(); // throws on schema / P/L problems
 }
 
 export function publish(message) {

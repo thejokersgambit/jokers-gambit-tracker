@@ -19,7 +19,6 @@ const line = (b) => `#${b.id}  ${dayLabel(b.date)} ${shortDate(b.date)}  ${b.fix
 function settle(id, res) {
   const b = bets.find((x) => x.id === id);
   if (!b) throw new Error(`There is no bet #${id}`);
-  if (b.result !== 'pending') throw new Error(`Bet #${id} is already settled as ${b.result.toUpperCase()} — settled bets are never changed`);
   const result = parseResult(res);
   if (!result) throw new Error(`"${res}" is not a result — use w, l, p or void`);
   b.result = result;
@@ -70,7 +69,7 @@ if (!settled.length) {
 
 console.log('\nAbout to record:');
 settled.forEach((b) => console.log(`  ${line(b)}  →  ${b.result.toUpperCase()} ${fmtU(b.pl_units)}`));
-const ok = args.length ? true : await confirm('Settled bets can never be changed afterwards. Save and publish?');
+const ok = args.length ? true : await confirm('Save and publish?');
 done();
 if (!ok) {
   console.log('Cancelled — nothing saved.');

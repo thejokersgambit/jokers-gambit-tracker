@@ -5,7 +5,6 @@ The site at **thejokersgambit.com**. Every bet posted before kickoff, every bet 
 - All bets live in one file: `data/bets.json`. The site is rebuilt from it every time you publish.
 - You never edit that file by hand. You use the three commands below.
 - P/L is always calculated from stake × odds × result. Nobody types it in.
-- Once a bet is settled it's locked. A settled bet can't be changed or deleted — the publish step refuses.
 - Every change is saved to a public, timestamped history on GitHub. That history is the proof.
 
 All commands are typed in **Terminal** (Mac) or **PowerShell** (Windows), inside this folder.
@@ -77,7 +76,7 @@ npm run recap:month -- 2026-08
 
 | Command | What it does |
 |---|---|
-| `npm run check` | Checks the data file is valid and nothing settled has been changed. Changes nothing. |
+| `npm run check` | Checks the data file is valid. Changes nothing. |
 | `npm run publish` | Re-uploads. Use it if a command said "Upload failed" (e.g. you were offline). |
 | `npm run dev` | Preview the site on your own computer at http://localhost:4321 (press Ctrl+C to stop). |
 | `npm run preview:sample` | Preview the design with obviously fake data (red "SAMPLE" banner). Never goes live. |
@@ -87,18 +86,7 @@ npm run recap:month -- 2026-08
 
 ## Rules the system enforces
 
-The publish step compares your change against the last published version and **refuses** if:
-
-- a settled bet's date, fixture, bet, stake, odds, result, P/L or notes changed,
-- a settled bet went back to pending,
-- a bet was removed,
-- a P/L number doesn't match stake × odds × result.
-
-If you ever see "Integrity check failed", nothing went live. To throw away the bad local change:
-
-```
-git checkout data/bets.json
-```
+The publish step **refuses** if a P/L number doesn't match stake × odds × result, or the data file isn't valid.
 
 **P/L maths:** win = stake × (odds − 1); loss = −stake; push / void / pending = 0.
 **ROI** = total P/L ÷ units staked on settled win/loss bets (push and void stakes come back, so they don't count).
@@ -113,10 +101,9 @@ git checkout data/bets.json
 |---|---|
 | `npm: command not found` | Node isn't installed. Install the LTS version from https://nodejs.org |
 | `Upload failed (are you online?)` | Your change is saved on this computer. Reconnect and run `npm run publish`. |
-| `Integrity check failed` | Read the message. Nothing went live. Undo with `git checkout data/bets.json`. |
 | `Cannot find module 'satori'` (recap only) | Run `npm install` once. |
 | The live site didn't change | Wait 1–2 minutes. Then check vercel.com → your project → Deployments for a red ✗. |
-| You settled a bet wrong | It's locked by design. Don't edit the file. Post a correction on X, and ask a developer to add a clearly marked correction note. |
+| You settled a bet wrong | Ask Claude to fix the bet and publish again. |
 
 ---
 
