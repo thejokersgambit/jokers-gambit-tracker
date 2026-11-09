@@ -127,22 +127,29 @@ function plCell(b, width, size = 17) {
 
 function weekCard(bets, monday) {
   const s = summarise(bets);
-  const MAX = 9;
+  // Every bet gets a row: busy weeks shrink the rows (and drop the fixture line) instead of hiding bets.
+  // Only a week too big even for single-line rows falls back to "+ N more".
+  const ROWS_H = 464;
+  const MAX = Math.floor(ROWS_H / 29);
   const shown = bets.slice(0, bets.length > MAX ? MAX - 1 : MAX);
+  const n = shown.length + (bets.length > shown.length ? 1 : 0);
+  const rowH = Math.min(52, Math.floor(ROWS_H / Math.max(n, 1)));
+  const twoLine = rowH >= 40;
+  const betSize = rowH >= 50 ? 16.5 : rowH >= 40 ? 15 : 13.5;
   const rows = shown.map((b) =>
-    h('div', { alignItems: 'stretch', height: 52, borderBottom: `1px solid ${C.lineSoft}` },
-      h('div', { ...MONO, width: 62, paddingLeft: 16, alignItems: 'center', fontSize: 13, fontWeight: 700, letterSpacing: 1, color: C.silver }, dayLabel(b.date)),
+    h('div', { alignItems: 'stretch', height: rowH, borderBottom: `1px solid ${C.lineSoft}` },
+      h('div', { ...MONO, width: 62, paddingLeft: 16, alignItems: 'center', fontSize: twoLine ? 13 : 12, fontWeight: 700, letterSpacing: 1, color: C.silver }, dayLabel(b.date)),
       h('div', { flex: 1, flexDirection: 'column', justifyContent: 'center', overflow: 'hidden', paddingRight: 10 },
         h('div', { alignItems: 'baseline', gap: 8, overflow: 'hidden' },
-          h('div', { fontSize: 16.5, fontWeight: 600, color: C.ivory, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 380 }, b.bet),
-          h('div', { ...MONO, fontSize: 14, fontWeight: 500, color: C.muted }, `@${fmtOdds(b.odds)}`),
+          h('div', { fontSize: betSize, fontWeight: 600, color: C.ivory, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 380 }, b.bet),
+          h('div', { ...MONO, fontSize: twoLine ? 14 : 12.5, fontWeight: 500, color: C.muted }, `@${fmtOdds(b.odds)}`),
         ),
-        h('div', { fontSize: 12, color: C.dim, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 440 }, `${b.fixture} · ${b.league}`),
+        twoLine ? h('div', { fontSize: rowH >= 50 ? 12 : 11, marginTop: rowH >= 50 ? 0 : 1, color: C.dim, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 440 }, `${b.fixture} · ${b.league}`) : null,
       ),
       h('div', { width: 64, alignItems: 'center', justifyContent: 'center' },
-        h('div', { ...MONO, fontSize: 12.5, fontWeight: 700, padding: '5px 9px', borderRadius: 999, background: C.crimsonInk, color: C.ivory, border: `1px solid ${C.crimsonDeep}` }, fmtStake(b.stake_u)),
+        h('div', { ...MONO, fontSize: twoLine ? 12.5 : 11.5, fontWeight: 700, padding: twoLine ? '5px 9px' : '3px 8px', borderRadius: 999, background: C.crimsonInk, color: C.ivory, border: `1px solid ${C.crimsonDeep}` }, fmtStake(b.stake_u)),
       ),
-      plCell(b, 112),
+      plCell(b, 112, twoLine ? 17 : 15),
     ),
   );
   const more = bets.length - shown.length;
@@ -150,7 +157,7 @@ function weekCard(bets, monday) {
     h('div', { flexDirection: 'column', border: `1px solid ${C.line}`, borderRadius: 10, background: C.surface, overflow: 'hidden' },
       tableHead([h('div', { width: 62, paddingLeft: 16 }, 'DAY'), h('div', { flex: 1 }, 'BET'), h('div', { width: 64, justifyContent: 'center' }, 'UNITS'), h('div', { width: 112, justifyContent: 'flex-end', paddingRight: 16 }, 'P/L')]),
       ...rows,
-      more > 0 ? h('div', { ...MONO, height: 44, alignItems: 'center', paddingLeft: 16, fontSize: 13, color: C.muted, borderBottom: `1px solid ${C.lineSoft}` }, `+ ${more} more — every bet at ${CONFIG.domain}/log`) : null,
+      more > 0 ? h('div', { ...MONO, height: rowH, alignItems: 'center', paddingLeft: 16, fontSize: 13, color: C.muted, borderBottom: `1px solid ${C.lineSoft}` }, `+ ${more} more — every bet at ${CONFIG.domain}/log`) : null,
       h('div', { height: 54, alignItems: 'center', background: C.surface2, borderTop: `1px solid ${C.line}` },
         h('div', { ...MONO, width: 62, paddingLeft: 16, fontSize: 12, color: C.muted, fontWeight: 700, letterSpacing: 1 }, 'WEEK'),
         h('div', { ...MONO, flex: 1, fontSize: 13, color: C.muted }, `${record(s)} · ROI ${fmtPct(s.roi)}`),
