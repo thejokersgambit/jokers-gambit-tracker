@@ -196,6 +196,11 @@ export const fmtU = (x) => `${x > 0 ? '+' : x < 0 ? '−' : ''}${Math.abs(x).toF
 export const fmtPct = (x) => (x == null ? '—' : `${x > 0 ? '+' : x < 0 ? '−' : ''}${Math.abs(x).toFixed(1)}%`);
 export const fmtRate = (x) => (x == null ? '—' : `${x.toFixed(1)}%`);
 export const fmtOdds = (o) => (Math.round(o * 1000) % 10 ? o.toFixed(3) : o.toFixed(2));
+// Display only: the posted American price, worked back from the stored decimal (e.g. 1.877 → "-114", 2.05 → "+105").
+export const fmtAmerican = (d) => {
+  const a = d >= 2 ? Math.round((d - 1) * 100) : Math.round(-100 / (d - 1));
+  return a > 0 ? `+${a}` : `${a}`;
+};
 export const fmtStake = (s) => `${Number.isInteger(s) ? s : s.toFixed(2).replace(/0$/, '')}u`;
 export const record = (s) => `${s.wins}-${s.losses}${s.pushes ? `-${s.pushes}` : ''}`;
 export const sign = (x) => (x > 0 ? 'pos' : x < 0 ? 'neg' : 'flat');

@@ -28,8 +28,11 @@ export function build({ sample = false, draft = false } = {}) {
 
   fs.writeFileSync(path.join(out, 'index.html'), renderDashboard(bets, opts));
   fs.writeFileSync(path.join(out, 'log', 'index.html'), renderLog(bets, opts));
-  fs.writeFileSync(path.join(out, 'bets.csv'), toCSV(bets, FIELDS));
-  fs.copyFileSync(dataFile, path.join(out, 'bets.json'));
+  // Notes are private working notes: they stay in data/bets.json and never go on the site.
+  const PUBLIC = FIELDS.filter((f) => f !== 'notes');
+  const pub = bets.map((b) => Object.fromEntries(PUBLIC.map((f) => [f, b[f]])));
+  fs.writeFileSync(path.join(out, 'bets.csv'), toCSV(pub, PUBLIC));
+  fs.writeFileSync(path.join(out, 'bets.json'), '[\n' + pub.map((b) => '  ' + JSON.stringify(b)).join(',\n') + '\n]\n');
   return { count: bets.length, out };
 }
 

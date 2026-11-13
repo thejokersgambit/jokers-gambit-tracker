@@ -10,7 +10,7 @@ import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import {
   ROOT, CONFIG, loadBets, summarise, groupBy, weekStart, weekLabel, dayLabel, monthKey, monthLabel, byChrono,
-  fmtU, fmtPct, fmtRate, fmtOdds, fmtStake, record, isISODate,
+  fmtU, fmtPct, fmtRate, fmtAmerican, fmtStake, record, isISODate,
 } from './lib/bets.mjs';
 
 // Brand palette — same tokens as site/style.css. Crimson is structure only; results use signal green/red.
@@ -142,7 +142,7 @@ function weekCard(bets, monday) {
       h('div', { flex: 1, flexDirection: 'column', justifyContent: 'center', overflow: 'hidden', paddingRight: 10 },
         h('div', { alignItems: 'baseline', gap: 8, overflow: 'hidden' },
           h('div', { fontSize: betSize, fontWeight: 600, color: C.ivory, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 380 }, b.bet),
-          h('div', { ...MONO, fontSize: twoLine ? 14 : 12.5, fontWeight: 500, color: C.muted }, `@${fmtOdds(b.odds)}`),
+          h('div', { ...MONO, fontSize: twoLine ? 14 : 12.5, fontWeight: 500, color: C.muted }, fmtAmerican(b.odds)),
         ),
         twoLine ? h('div', { fontSize: rowH >= 50 ? 12 : 11, marginTop: rowH >= 50 ? 0 : 1, color: C.dim, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 440 }, `${b.fixture} · ${b.league}`) : null,
       ),

@@ -2,7 +2,7 @@
 
 import {
   CONFIG, summarise, groupBy, weekStart, weekLabel, weekLabelLong, dayLabel, dayName, shortDate, monthKey, monthLabel,
-  fmtU, fmtPct, fmtRate, fmtOdds, fmtStake, record, sign, byChrono,
+  fmtU, fmtPct, fmtRate, fmtAmerican, fmtStake, record, sign, byChrono,
 } from './bets.mjs';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -130,7 +130,7 @@ export function renderDashboard(bets, opts) {
     <li class="wk-row r-${b.result}">
       <span class="wk-day"><span class="d-long">${dayName(b.date)}</span><span class="d-short">${dayLabel(b.date)}</span></span>
       <span class="wk-bet">
-        <span class="wk-text">${esc(b.bet)} <span class="odds">@${fmtOdds(b.odds)}</span></span>
+        <span class="wk-text">${esc(b.bet)} <span class="odds">${fmtAmerican(b.odds)}</span></span>
         <span class="wk-meta">${esc(b.fixture)} · ${esc(b.league)}${b.tweet_url ? ` · <a href="${esc(b.tweet_url)}" rel="noopener" aria-label="Pick #${b.id} on X">tweet ↗</a>` : ''}</span>
       </span>
       <span class="pill">${fmtStake(b.stake_u)}</span>
@@ -228,9 +228,8 @@ export function renderLog(bets, opts) {
       <span class="lg-market">${esc(b.market_type)}</span>
     </div>
     <div class="lg-fixture">${esc(b.fixture)}</div>
-    <div class="lg-bet">${esc(b.bet)} <span class="odds">@${fmtOdds(b.odds)}</span> <span class="pill">${fmtStake(b.stake_u)}</span></div>
+    <div class="lg-bet">${esc(b.bet)} <span class="odds">${fmtAmerican(b.odds)}</span> <span class="pill">${fmtStake(b.stake_u)}</span></div>
     <div class="lg-res"><span class="res res-${b.result}">${RESULT_LABEL[b.result]}</span>${plCell(b, true)}</div>
-    ${b.notes ? `<div class="lg-notes">${esc(b.notes)}</div>` : ''}
     <div class="lg-tw">${tweetLink(b)}</div>
   </li>`,
     )
